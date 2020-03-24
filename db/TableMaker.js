@@ -3,25 +3,26 @@ function tableMaker(strings) {
     const keys = heading.trim().split(/[ |]+/);
     const rows = body.trim().split('\n');
 
-    return rows.map(row => {
-        const vals = row.trim().split(/ *\| */);
+    return rows
+        .map(row => {
+            if (/^\/\//.test(row.trim())) return null;
+            const vals = row.trim().split(/ *\| */);
 
-        return keys.reduce((acc, key, i) => {
-            let val = vals[i];
-            if (/^\d+$/.test(val)) {
-                //only digit chars
-                val = parseFloat(val);
-            } else if (/\[.*\]/.test(val)) {
-                //includes []
-                val = val
-                    .replace(/\[|\]/g, '')
-                    .trim()
-                    .split(/, ?/);
-            }
+            return keys.reduce((acc, key, i) => {
+                let val = vals[i];
+                if (/^\d+$/.test(val)) {
+                    val = parseFloat(val);
+                } else if (/\[.*\]/.test(val)) {
+                    val = val
+                        .replace(/\[|\]/g, '')
+                        .trim()
+                        .split(/, ?/);
+                }
 
-            return { ...acc, [key]: val };
-        }, {});
-    });
+                return { ...acc, [key]: val };
+            }, {});
+        })
+        .filter(e => e !== null);
 }
 
 export default tableMaker;
@@ -31,6 +32,9 @@ let students = tableMaker`
 ----+---------------+---------------+---------------+----------------+------------
   1 | Jaime Gensler | 4             | [ ENG, PHIL ] | [ CW ]         | [ C, W ]
   2 | Grace Krueger | 3             | [ THAR    ]   | [ SPAN, LING ] | [ W ]
+  3 | Grace Krueger | 3             | [ THAR    ]   | [ SPAN, LING ] | [ W ]
+  4 | Grace Krueger | 3             | [ THAR    ]   | [ SPAN, LING ] | [ W ]
+  5 | Grace Krueger | 3             | [ THAR    ]   | [ SPAN, LING ] | [ W ]
 `;
 let classes = tableMaker`
  ID | title                  | subject | number 
