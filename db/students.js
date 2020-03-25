@@ -1,7 +1,7 @@
 const tableReader = require('./tableReader');
 
 const students = tableReader`
- ID | name              | classStanding | majors         | minors         | tutorTypes
+ id | name              | classStanding | majors         | minors         | tutorTypes
 ----+-------------------+---------------+----------------+----------------+------------
   1 | Vape Juice Jaime  | 4             | [ ENG, PHIL ]  | [ CW ]         | [ C, W ]
   2 | Vape Juice Jordan | 1             | [ CMSC ]       | [ BEIN, DUMB ] | [ C ]

@@ -1,7 +1,7 @@
 const tableReader = require('./tableReader');
 
-const classes = tableReader`
- ID | title                      | subject | number | professor
+const courses = tableReader`
+ id | title                      | subject | number | professor
 ----+----------------------------+---------+--------+-----------
   1 | Literary Analysis          | ENG     | 150    | Segrest
   2 | British Writers II         | ENG     | 240    | Spurgin
@@ -28,4 +28,4 @@ const classes = tableReader`
  20 | Authoritarianism           | GOVT    | 600    | Balsekar
 `;
 
-module.exports = classes;
+module.exports = courses;
