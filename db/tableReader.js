@@ -1,4 +1,4 @@
-function tableReader(table) {
+const tableReader = table => {
     const [heading, body] = table[0].split(/^[-+]+$/m);
     const keys = heading.trim().split(/[ |]+/);
     const rows = body.trim().split('\n');
@@ -27,6 +27,6 @@ function tableReader(table) {
                 return { ...acc, [key]: val };
             }, {});
         });
-}
+};
 
-export default tableReader;
+module.exports = tableReader;

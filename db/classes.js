@@ -1,6 +1,6 @@
-import tableMaker from './TableMaker';
+const tableReader = require('./tableReader');
 
-let classes = tableMaker`
+const classes = tableReader`
  ID | title                      | subject | number | professor
 ----+----------------------------+---------+--------+-----------
   1 | Literary Analysis          | ENG     | 150    | Segrest
@@ -28,4 +28,4 @@ let classes = tableMaker`
  20 | Authoritarianism           | GOVT    | 600    | Balsekar
 `;
 
-export default classes;
+module.exports = classes;

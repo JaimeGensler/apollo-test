@@ -1,6 +1,6 @@
-import tableReader from './tableReader';
+const tableReader = require('./tableReader');
 
-let students = tableReader`
+const students = tableReader`
  ID | name              | classStanding | majors         | minors         | tutorTypes
 ----+-------------------+---------------+----------------+----------------+------------
   1 | Vape Juice Jaime  | 4             | [ ENG, PHIL ]  | [ CW ]         | [ C, W ]
@@ -11,4 +11,4 @@ let students = tableReader`
   6 | John Krasinski    | 2             | [ PSYC ]       | [ ]            | [ ]
 `;
 
-export default students;
+module.exports = students;
