@@ -1,7 +1,8 @@
 const { ApolloServer, gql } = require('apollo-server');
 
-const students = require('./db/students');
 const courses = require('./db/courses');
+const students = require('./db/students');
+const requests = require('./db/requests');
 const student_courses = require('./db/student_courses');
 
 const typeDefs = gql`
@@ -22,10 +23,20 @@ const typeDefs = gql`
         professor: String
         students: [Student]
     }
+    type Request {
+        id: Int
+        tutor: Student
+        tutee: Student
+        course: Course
+        description: String
+        tutorType: String
+        status: String
+    }
 
     type Query {
         students: [Student]
         courses: [Course]
+        requests: [Request]
     }
 `;
 
@@ -33,6 +44,7 @@ const resolvers = {
     Query: {
         students: () => students,
         courses: () => courses,
+        requests: () => requests,
     },
     Student: {
         courses(parent) {
@@ -56,6 +68,17 @@ const resolvers = {
             }, []);
 
             return students.filter(student => studentIDs.includes(student.id));
+        },
+    },
+    Request: {
+        tutor(parent) {
+            return students.find(student => student.id === parent.tutorID);
+        },
+        tutee(parent) {
+            return students.find(student => student.id === parent.tuteeID);
+        },
+        course(parent) {
+            return courses.find(course => course.id === parent.courseID);
         },
     },
 };
