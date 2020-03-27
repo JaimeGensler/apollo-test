@@ -37,21 +37,46 @@ const typeDefs = gql`
         students: [Student]
         courses: [Course]
         requests: [Request]
+
+        student(id: Int!): Student
+        requestsAssignedToStudent(studentID: Int!): [Request]
+        requestsMadeByStudent(studentID: Int!): [Request]
+        studentByName(name: String!): [Student]
     }
 `;
 
 const resolvers = {
     Query: {
         students: () => students,
+        student: (parent, args, context, info) => {
+            return students.find(student => student.id === args.id);
+        },
+        studentByName: (parent, args, context, info) => {
+            //intended use for blacklisting tutors
+            //ideally want to limit amount of data accessible by anybody
+            //probably return an error if the filter finds more than 3-5 people?
+            //also this filtering system sucks rn
+            return students.filter(student =>
+                student.name.toLowerCase().includes(args.name.toLowerCase())
+            );
+        },
+
         courses: () => courses,
+
         requests: () => requests,
+        requestsAssignedToStudent: (parent, args, context, info) => {
+            return requests.filter(
+                request => request.tutorID === args.studentID
+            );
+        },
+        requestsMadeByStudent: (parent, args, context, info) => {
+            return requests.filter(
+                request => request.tuteeID === args.studentID
+            );
+        },
     },
     Student: {
         courses(parent) {
-            // const temp = student_courses
-            //     .filter(item => item.studentID === parent.id)
-            //     .map(item => item.courseID);
-
             const courseIDs = student_courses.reduce((acc, val) => {
                 if (val.studentID === parent.id) acc.push(val.courseID);
                 return acc;
