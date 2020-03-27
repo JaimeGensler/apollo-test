@@ -7,13 +7,13 @@ const typeDefs = gql`
             name
             courses {
                 title
-                id
+                id #not displayed but needs to be sent back
             }
         }
 
         #info needed for blacklisting
         studentByName(name: "Vape") {
-            id
+            id #not displayed but needs to be sent back
             name
             classStanding
         }

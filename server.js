@@ -56,6 +56,7 @@ const resolvers = {
             //ideally want to limit amount of data accessible by anybody
             //probably return an error if the filter finds more than 3-5 people?
             //also this filtering system sucks rn
+            //only needs to return people that are tutors
             return students.filter(student =>
                 student.name.toLowerCase().includes(args.name.toLowerCase())
             );
